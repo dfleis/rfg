@@ -15,7 +15,6 @@ TODO
 
 ## Installation
 
-TODO
 ```R
 devtools::install_github("dfleis/rfg")
 ```
