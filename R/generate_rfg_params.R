@@ -20,7 +20,7 @@
 #'
 #' @return A list of length `num.funs`, where each element contains the following parameters used
 #'   to specify one basis function:
-#'   \item{`a`}{Linear coefficient uniformly sampled as \eqn{a\sim \text{Uniform}[\text{`a.min`}, \text{`a.max`}]}.}
+#'   \item{`a`}{Linear coefficient uniformly sampled as \eqn{a\sim \text{Uniform}[\code{a.min}, \code{a.max}]}.}
 #'   \item{`phi`}{Vector of indices indicating the random subset and permutation of input variables to
 #'   be used by the basis function.}
 #'   \item{`mu`}{Mean vector for the Gaussian function, entries drawn from standard normal distribution.}
