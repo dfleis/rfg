@@ -44,6 +44,7 @@ usethis::use_mit_license()
 
 #----- Set some package dependencies
 usethis::use_import_from("stats", c("rnorm", "rexp", "runif"))
+# usethis::use_import_from("rlang", "is_integerish")
 # usethis::use_package("httr2", type = "Imports")
 # usethis::use_import_from("httr2", fun = "%>%")
 # usethis::use_package("R6", type = "Imports")

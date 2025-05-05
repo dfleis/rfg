@@ -34,14 +34,12 @@ described in \code{\link[=rfg]{rfg()}}. Default \code{lambda = 2}.}
 covariance matrix \eqn{V_\ell} described in \code{\link[=rfg]{rfg()}}. Default \code{d.min = 0.1}.}
 
 \item{d.max}{Upper limit for singular values \eqn{\sqrt{d_j}} used to generate the
-covariance matrix \eqn{V_\ell} described in \code{\link[=rfg]{rfg()}}. Default \code{d.min = 2}.}
-
-\item{seed}{Optional seed for reproducibility of random parameter generation.}
+covariance matrix \eqn{V_\ell} described in \code{\link[=rfg]{rfg()}}. Default \code{d.max = 2}.}
 }
 \value{
 A list of length \code{num.funs}, where each element contains the following parameters used
 to specify one basis function:
-\item{\code{a}}{Linear coefficient uniformly sampled as \eqn{a\sim \text{Uniform}[\text{`a.min`}, \text{`a.max`}]}.}
+\item{\code{a}}{Linear coefficient uniformly sampled as \eqn{a\sim \text{Uniform}[\code{a.min}, \code{a.max}]}.}
 \item{\code{phi}}{Vector of indices indicating the random subset and permutation of input variables to
 be used by the basis function.}
 \item{\code{mu}}{Mean vector for the Gaussian function, entries drawn from standard normal distribution.}

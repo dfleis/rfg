@@ -16,8 +16,7 @@
 #'    covariance matrix \eqn{V_\ell} described in [rfg()]. Default `d.min = 0.1`.
 #' @param d.max Upper limit for singular values \eqn{\sqrt{d_j}} used to generate the 
 #'    covariance matrix \eqn{V_\ell} described in [rfg()]. Default `d.max = 2`.
-#' @param seed Optional seed for reproducibility of random parameter generation.
-#'
+#'    
 #' @return A list of length `num.funs`, where each element contains the following parameters used
 #'   to specify one basis function:
 #'   \item{`a`}{Linear coefficient uniformly sampled as \eqn{a\sim \text{Uniform}[\code{a.min}, \code{a.max}]}.}

@@ -4,9 +4,9 @@
 #'   (2001). The function is a sum of multivariate Gaussian basis functions
 #'   with random parameters, intended for evaluating algorithms on synthetic data.
 #'   
-#' @details The random function generator creates a complex function over
-#'   multivariate inputs defined as a linear combination of nonlinear basis
-#'   functions:
+#' @details The classical random function generator in Friedman (2001) creates a
+#'   real-valued function over multivariate inputs defined as a linear combination
+#'   of nonlinear basis functions of the form:
 #'   
 #'   \deqn{F^*(x) \coloneqq \sum_{\ell=1}^{L} a_\ell g_\ell(z_\ell),}
 #'   
@@ -43,12 +43,27 @@
 #'           is generated uniformly (the singular values) and not \eqn{d_j} (the eigenvalues).
 #'     }
 #'   }
+#'   
+#'   This implementation extends the original design to support multivariate outputs given
+#'   a user-specified output dimensionality \eqn{q}. The function generates \eqn{q} RFG
+#'   component functions producing a vector-valued mapping \eqn{F^*:\mathbb{R}^p\to\mathbb{R}^q}
+#'   where:
+#'   
+#'   \deqn{F^*(x) = (F_1^*(x), \ldots, F_q^*(x)).}
+#'   
+#'   Each component function \eqn{F_k^*(x)} is generated as a realization of the random
+#'   function generator such that each \eqn{F_k^*(x)} has a common input dimension \eqn{p},
+#'   but specified with independently-generated parameters on an independently-permutted
+#'   random subset of the input \eqn{p}-dimensions.
 #'
 #' @inheritParams generate_rfg_params
+#' @param q Number of RFG coordinate functions for multivariate output. Default is `q = 1`, 
+#'   which produces the classical single-output function.
 #' @param ... Additional arguments passed to [generate_rfg_params()].
 #' @param incl.params Logical value indicating whether the parameters used
 #'   to generate the function should be included as attributes of the
 #'   generated function. Default `incl.params = FALSE`.
+#' @param seed Optional seed for reproducibility of random function generation.
 #'
 #' @return A function that takes a matrix `x` of observations (rows) and 
 #'   variables (columns) as input, and returns a numeric vector such that
@@ -63,9 +78,10 @@
 #' set.seed(1)
 #' n <- 1000
 #' p <- 2
-#' X <- matrix(rnorm(n * p), ncol = p)
 #'
-#' g <- rfg(p = p)
+#' g <- rfg(p)
+#'
+#' X <- matrix(rnorm(n * p), ncol = p)
 #' y <- g(X)
 #' 
 #' #----- plot
@@ -74,22 +90,29 @@
 #' }
 #' 
 #' @export
-rfg <- function(p, num.funs = 20L, ...,
-                incl.params = FALSE) {
-  params <- generate_rfg_params(p, num.funs = num.funs, ...)
-
+rfg <- function(p, q = 1L, num.funs = 20L, ...,
+                incl.params = FALSE, seed = NULL) {
+  if (!is.null(seed)) set.seed(seed)
+  
+  params_list <- lapply(seq_len(q), function(i) {
+    generate_rfg_params(p, num.funs = num.funs, ...)
+  })
+  
   FUN <- function(x) {
-    out <- rep(0, NROW(x))
-    for (l in seq_len(num.funs)) {
-      # Subset/permute the input covariate matrix, then center by mu
-      zc <- sweep(x[, params[[l]]$phi, drop = FALSE], 2, params[[l]]$mu, "-")
-      zV <- zc %*% params[[l]]$V
-      # Compute quadratic form, then Gaussian
-      out <- out + params[[l]]$a * exp(-0.5 * rowSums(zV * zc))
+    out <- matrix(0, NROW(x), ncol = q)
+    for (k in seq_len(q)) {
+      params <- params_list[[k]]
+      for (l in seq_len(num.funs)) {
+        # Subset/permute the input covariate matrix, then center by mu
+        zc <- sweep(x[, params[[l]]$phi, drop = FALSE], 2, params[[l]]$mu, "-")
+        # Compute quadratic form, then Gaussian
+        zV <- zc %*% params[[l]]$V
+        out[, k] <- out[, k] + params[[l]]$a * exp(-0.5 * rowSums(zV * zc))
+      }
     }
     return(out)
   }
 
-  if (isTRUE(incl.params)) attr(FUN, "params") <- params
+  if (isTRUE(incl.params)) attr(FUN, "params") <- params_list
   return(FUN)
 }

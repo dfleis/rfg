@@ -4,10 +4,13 @@
 \alias{rfg}
 \title{Random Function Generator}
 \usage{
-rfg(p, num.funs = 20L, ..., incl.params = FALSE)
+rfg(p, q = 1L, num.funs = 20L, ..., incl.params = FALSE, seed = NULL)
 }
 \arguments{
 \item{p}{Input dimensionality, number of input variables.}
+
+\item{q}{Number of RFG coordinate functions for multivariate output. Default is \code{q = 1},
+which produces the classical single-output function.}
 
 \item{num.funs}{Number of basis functions to use for the random function generation.
 Corresponds to the parameter \eqn{L} described in \code{\link[=rfg]{rfg()}}. Default \code{num.funs = 20}.}
@@ -17,6 +20,8 @@ Corresponds to the parameter \eqn{L} described in \code{\link[=rfg]{rfg()}}. Def
 \item{incl.params}{Logical value indicating whether the parameters used
 to generate the function should be included as attributes of the
 generated function. Default \code{incl.params = FALSE}.}
+
+\item{seed}{Optional seed for reproducibility of random function generation.}
 }
 \value{
 A function that takes a matrix \code{x} of observations (rows) and
@@ -30,9 +35,9 @@ Creates a random function according to the design in Friedman
 with random parameters, intended for evaluating algorithms on synthetic data.
 }
 \details{
-The random function generator creates a complex function over
-multivariate inputs defined as a linear combination of nonlinear basis
-functions:
+The classical random function generator in Friedman (2001) creates a
+real-valued function over multivariate inputs defined as a linear combination
+of nonlinear basis functions of the form:
 
 \deqn{F^*(x) \coloneqq \sum_{\ell=1}^{L} a_\ell g_\ell(z_\ell),}
 
@@ -69,15 +74,28 @@ that \eqn{\sqrt{d_j}} is generated uniformly. Note that it is \eqn{\sqrt{d_j}} t
 is generated uniformly (the singular values) and not \eqn{d_j} (the eigenvalues).
 }
 }
+
+This implementation extends the original design to support multivariate outputs given
+a user-specified output dimensionality \eqn{q}. The function generates \eqn{q} RFG
+component functions producing a vector-valued mapping \eqn{F^*:\mathbb{R}^p\to\mathbb{R}^q}
+where:
+
+\deqn{F^*(x) = (F_1^*(x), \ldots, F_q^*(x)).}
+
+Each component function \eqn{F_k^*(x)} is generated as a realization of the random
+function generator such that each \eqn{F_k^*(x)} has a common input dimension \eqn{p},
+but specified with independently-generated parameters on an independently-permutted
+random subset of the input \eqn{p}-dimensions.
 }
 \examples{
 \dontrun{
 set.seed(1)
 n <- 1000
 p <- 2
-X <- matrix(rnorm(n * p), ncol = p)
 
-g <- rfg(p = p)
+g <- rfg(p)
+
+X <- matrix(rnorm(n * p), ncol = p)
 y <- g(X)
 
 #----- plot
