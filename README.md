@@ -27,6 +27,7 @@ TODO
 ## TODO
 
 * Replace the `incl.params` mechanism in `rfg()` with an optional user-supplied environment via some new argument `env = NULL`. If `incl.params = TRUE` then `rfg()` adds the generated parameters as attributes on the function. Instead, I think it would be preferable to store the parameters in some environment such that advanced users could be able to modify the parameters after generation-time.
+* Allow more flexible generation for the the mean vectors $\mu_\ell$: The RFG mechanism used by Friedman (2001) specifies that the mean vectors $\mu_\ell$ be sampled from the same distribution as the inputs $x$. In this implementation, the mean vectors are independently sampled as standard Gaussians, $\mu_\ell \sim \mathcal N({\bf 0},\mathbb I)$.  One idea is to keep the $\mu_\ell$ as Gaussian, but allow users to pass a mean (i.e. a mean for the mean vectors) and covariance, i.e. $\mu_\ell \sim \mathcal N(\mu^\star, \Sigma_\mu^\star)$ where $\mu^\star$ and $\Sigma_\mu^\star$ are optionally user-supplied. An even more flexible option is to allow the user to supplied a random sampler that generates random vectors of the appropriate size.
 
 ## References
 Jerome H. Friedman.
