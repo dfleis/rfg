@@ -13,7 +13,7 @@ rm(list = ls()); gc()
 #----- (Optional) Different ways to clean if we're worried about conflicts
 # devtools::unload() # Unload from R session (usually sufficient if we're having problems)
 # devtools::uninstall(unload = T) # Combines unloading and removal (dev-friendly version of remove.packages)
-# remove.packages("rfg")
+remove.packages("rfg")
 
 #----- Development cycle
 # usethis::use_version("dev")
