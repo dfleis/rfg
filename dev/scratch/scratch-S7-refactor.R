@@ -51,7 +51,7 @@ prop_p <- S7::new_property(
   class = S7::class_numeric,     # should be strictly positive integer index
   validator = function(value) {  # maybe just do as.integer() in a setter?
     if (length(value) != 1L) {
-      "Must be an integer value representing the dimensionality of the input space"
+      "Must be an integer value representing the dimensionality of the covariate space"
     }
   }
 )
@@ -115,6 +115,32 @@ generate_rfg_params <- function(
   rfg_params(p = p, bases = bases)
 }
 
+prop_rfg_param_sets <- S7::new_property(
+  class = S7::class_list,
+  validator = function(value) {
+    if (!all(sapply(value, S7::S7_inherits, class = rfg_params))) {
+      "Must be a list of only <rfg_params> objects"
+    }
+  }
+)
+rfg_multivariate_params <- S7::new_class(
+  name = "rfg_multivariate_params",
+  properties = list(
+    param_sets = prop_rfg_param_sets
+  ),
+  validator = function(self) {
+    if (length(self@param_sets) == 0L) {
+      "Property @param_sets must be a nonempty list of <rfg_params> objects"
+    } else if (length(unique(sapply(self@param_sets, function(params) params@p))) != 1L) {
+      "Every <rfg_params> object must have the same covariate dimensionality @p"
+    }
+  }
+)
+
+generate_rfg_multivariate_params <- function(p, q = 1, ...) {
+  param_sets <- lapply(seq_len(q), function(i) generate_rfg_params(p = p, ...))
+  rfg_multivariate_params(param_sets = param_sets)
+}
 
 
 rfg_function <- S7::new_class(
@@ -185,32 +211,6 @@ S7::method(params, rfg_function) <- function(x) {
 #   }
 # )
 
-prop_rfg_param_sets <- S7::new_property(
-  class = S7::class_list,
-  validator = function(value) {
-    if (!all(sapply(value, S7::S7_inherits, class = rfg_params))) {
-      "Must be a list of only <rfg_params> objects"
-    }
-  }
-)
-rfg_multivariate_params <- S7::new_class(
-  name = "rfg_multivariate_params",
-  properties = list(
-    param_sets = prop_rfg_param_sets
-  ),
-  validator = function(self) {
-    if (length(self@param_sets) == 0L) {
-      "Property @param_sets must be a nonempty list of <rfg_params> objects"
-    } else if (length(unique(sapply(self@param_sets, function(params) params@p))) != 1L) {
-      "Every <rfg_params> object must have the same covariate dimensionality @p"
-    }
-  }
-)
-
-generate_rfg_multivariate_params <- function(p, q = 1, ...) {
-  param_sets <- lapply(seq_len(q), function(i) generate_rfg_params(p = p, ...))
-  rfg_multivariate_params(param_sets)
-}
 
 
 S7::method(rfg, rfg_multivariate_params) <- function(x) {
