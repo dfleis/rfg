@@ -2,21 +2,14 @@
 % Please edit documentation in R/rfg-package.R
 \docType{package}
 \name{rfg-package}
+\alias{rfg}
 \alias{rfg-package}
-\title{Random Function Generator Package}
+\title{rfg: Random Function Generator}
 \description{
-Modular implementation of the random function generator methodology
-developed by Friedman (2001) for evaluating algorithms on synthetic data. This
-package generates complex multivariate functions with controlled characteristics,
-and serves as a benchmarking framework for assessing model performance on
-high-dimensional problems.
-}
-\references{
-Friedman, J. H. (2001). Greedy function approximation: A gradient boosting machine.
-The Annals of Statistics, 29(5), 1189-1232.
-\doi{10.1214/aos/1013203451}
+Generates complex multivariate functions following the random function generator design used in Friedman (2001) 'Greedy function approximation: A gradient boosting machine'. Intended for use as part of data pipeline for synethic data experiments.
 }
 \author{
 \strong{Maintainer}: David Fleischer \email{david.p.fleischer@gmail.com}
 
 }
+\keyword{internal}

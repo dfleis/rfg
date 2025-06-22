@@ -1,6 +1,6 @@
 Package: rfg
 Title: Random Function Generator
-Version: 0.0.0.9001
+Version: 0.0.0.9000
 Authors@R: 
     person("David", "Fleischer", , "david.p.fleischer@gmail.com", role = c("cre", "aut"))
 Description: Generates complex multivariate functions following the random

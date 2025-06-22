@@ -3,11 +3,10 @@
 # Using the devtools ecosystem to run the different stages of the package build cycle.
 #
 ####################################################################################################
-# .rs.restartR()
-
+#.rs.restartR()
 library(devtools)
 library(usethis)
-library(testthat)
+# library(testthat)
 rm(list = ls()); gc()
 
 #----- (Optional) Different ways to clean if we're worried about conflicts
