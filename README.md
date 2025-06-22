@@ -10,11 +10,11 @@ Implementation of the "random function generator" used in Friedman (2001) for sy
 4.  [TODO](#todo)
 5.  [References](#references)
 
-## Introduction {#introduction}
+## Introduction
 
 TODO
 
-## Installation {#installation}
+## Installation
 
 Install the current default branch head (master):
 
@@ -28,11 +28,11 @@ Install the version of `rfg` used as part the [Generalized Random Forests using 
 devtools::install_github("dfleis/rfg@grf-fpt-icml")
 ```
 
-## Usage {#usage}
+## Usage
 
 TODO
 
-## TODO {#todo}
+## TODO
 
 -   Add informative error messaging when a user tries to supply a vector input to `g <- RFG(p)` rather than a matrix input. If `g <- rfg(p)` then the generated function `g()` expects an input `x` to be a matrix with `p` columns. If user tries to pass a vector, say `x <- rnorm(p)` with the intention that it represents a single $p$-dimensional vector, then the function currently errors out and displays the message `Error in x[, params[[l]]$phi, drop = FALSE] : incorrect number of dimensions`.
 
@@ -42,7 +42,7 @@ TODO
 
 -   Allow more flexible generation for the the mean vectors $\mu_\ell$: The RFG mechanism used by Friedman (2001) specifies that the mean vectors $\mu_\ell$ be sampled from the same distribution as the inputs $x$. In this implementation, the mean vectors are independently sampled as standard Gaussians, $\mu_\ell \sim \mathcal N({\bf 0},\mathbb I)$. One idea is to keep the $\mu_\ell$ as Gaussian, but allow users to pass a mean (i.e. a mean for the mean vectors) and covariance, i.e. $\mu_\ell \sim \mathcal N(\mu^\star, \Sigma_\mu^\star)$ where $\mu^\star$ and $\Sigma_\mu^\star$ are optionally user-supplied. An even more flexible option is to allow the user to supplied a random sampler that generates random vectors of the appropriate size.
 
-## References {#references}
+## References
 
 Jerome H. Friedman. <b>Greedy function approximation: A gradient boosting machine.</b> <i>The Annals of Statistics</i>, 29, 2001. [<a href="https://doi.org/10.1214/aos/1013203451">paper</a>]
 
