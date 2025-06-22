@@ -1,9 +1,3 @@
----
-editor_options: 
-  markdown: 
-    wrap: sentence
----
-
 # Random Function Generator
 
 Implementation of the "random function generator" used in Friedman (2001) for synthetic data experiments.
