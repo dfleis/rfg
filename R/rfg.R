@@ -53,9 +53,7 @@ S7::method(rfg, S7::class_list) <- function(p, q = 1L, ..., seed = NULL) {
   param_list <- p # p is a list of <rfg_params> objects
   
   .create_scalar_rfg_fun <- function(scalar_rfg_fun_params) {
-    # TODO Should we call `force(scalar_rfg_fun_params@p)` and
-    # `force(scalar_rfg_fun_params@bases)` to ensure these things are properly
-    # captured before the inner function definition?
+    force(scalar_rfg_fun_params)
     p_dim <- scalar_rfg_fun_params@p
     bases <- scalar_rfg_fun_params@bases
     
