@@ -19,7 +19,8 @@ rm(list = ls()); gc()
 # usethis::use_version("patch")
 # usethis::use_version("minor")
 # usethis::use_version("major")
-devtools::load_all() # Load the current version
+
+# devtools::load_all() # Load the current version
 # devtools::document() # Update documentation via Roxygen
 # devtools::test()   # Run testthat tests
 

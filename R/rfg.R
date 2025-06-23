@@ -71,8 +71,6 @@ S7::method(rfg, S7::class_list) <- function(p, q = 1L, ..., seed = NULL) {
     return(FUN)
   }
   
-  # TODO Is it a good idea to call `force` here to ensure these functions
-  # are themselves captured before we create the later function?
   FUNS <- lapply(param_list, .create_scalar_rfg_fun)
   
   FUN <- function(x) {

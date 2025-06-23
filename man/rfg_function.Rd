@@ -4,7 +4,7 @@
 \alias{rfg_function}
 \title{The \code{rfg_function} Class}
 \usage{
-rfg_function(.data = function() NULL, params = list())
+rfg_function(..., params)
 }
 \description{
 An S7 class to represent a callable RFG function returned by \code{\link[=rfg]{rfg()}}. It
