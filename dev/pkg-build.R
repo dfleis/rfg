@@ -7,7 +7,7 @@
 library(devtools)
 library(usethis)
 # library(testthat)
-# rm(list = ls()); gc()
+rm(list = ls()); gc()
 
 #----- (Optional) Different ways to clean if we're worried about conflicts
 # devtools::unload() # Unload from R session (usually sufficient if we're having problems)
@@ -19,8 +19,7 @@ library(usethis)
 # usethis::use_version("patch")
 # usethis::use_version("minor")
 # usethis::use_version("major")
-
-# devtools::load_all() # Load the current version
+devtools::load_all() # Load the current version
 # devtools::document() # Update documentation via Roxygen
 # devtools::test()   # Run testthat tests
 

@@ -16,7 +16,7 @@
 
 #' @keywords internal
 #' @noRd
-prop_numeric <- function(name = NULL, .is_valid_checker = .always_true, ...) {
+.make_prop_numeric <- function(name = NULL, .is_valid_checker = .always_true, ...) {
   S7::new_property(
     name = name,
     class = S7::class_numeric,
@@ -32,15 +32,15 @@ prop_numeric <- function(name = NULL, .is_valid_checker = .always_true, ...) {
 
 #' @keywords internal
 #' @noRd
-prop_numeric_scalar <- prop_numeric("scalar", function(x) length(x) == 1L)
+prop_numeric_scalar <- .make_prop_numeric("scalar", function(x) length(x) == 1L)
 
 #' @keywords internal
 #' @noRd
-prop_numeric_vector <- prop_numeric("numeric", function(x) length(x) > 0L)
+prop_numeric_vector <- .make_prop_numeric("numeric", function(x) length(x) > 0L)
 
 #' @keywords internal
 #' @noRd
-prop_numeric_matrix <- prop_numeric("matrix", is.matrix)
+prop_numeric_matrix <- .make_prop_numeric("matrix", is.matrix)
 
 #' @keywords internal
 #' @noRd
@@ -72,18 +72,21 @@ prop_bases <- S7::new_property(
 
 #' @keywords internal
 #' @noRd
-prop_params_list <- S7::new_property(
-  class = S7::class_list,
-  validator = function(value) {
-    if (length(value) == 0L) {
-      "Must be a nonempty list of <rfg_params> objects"
-    } else if (!all(sapply(value, S7::S7_inherits, class = rfg_params))) {
-      "Must be a list of only <rfg_params> objects"
-    } else if (length(unique(sapply(value, function(params) params@p))) != 1L) {
-      paste(
-        "Every <rfg_params> object in the list must",
-        "have the same domain dimensionality @p"
-      )
-    }
-  }
-)
+.make_prop_rfg_params_list <- function(...) {
+  S7::new_property(
+    class = S7::class_list,
+    validator = function(value) {
+      if (length(value) == 0L) {
+        "Must be a nonempty list of <rfg_params> objects"
+      } else if (!all(sapply(value, S7::S7_inherits, class = rfg_params))) {
+        "Must be a list of only <rfg_params> objects"
+      } else if (length(unique(sapply(value, S7::prop, "p"))) != 1L) {
+        paste(
+          "Every <rfg_params> object in the list must",
+          "have the same domain dimensionality @p"
+        )
+      }
+    },
+    ...
+  )
+}

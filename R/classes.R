@@ -18,7 +18,7 @@ rfg_basis_params <- S7::new_class(
   ),
   validator = function(self) {
     if (NROW(self@V) != NCOL(self@V)) {
-      "@V must be a square matrix"
+      "@V must be a square matrix" # Don't bother checking symmetry or PSD
     } else if (length(self@phi) != length(self@mu)) {
       "The length of @phi must be equal to the length of @mu"
     } else if (length(self@phi) != NROW(self@V)) {
@@ -72,13 +72,15 @@ rfg_params <- S7::new_class(
 #' An S7 class to represent a callable RFG function returned by [rfg()]. It
 #' inherits from `S7::class_function` and holds the list of `<rfg_params>`
 #' objects that specify an RFG function.
-#' 
+#'
 #' @keywords internal
 #' @export
 rfg_function <- S7::new_class(
   name = "rfg_function",
   parent = S7::class_function,
   properties = list(
-    params = prop_params_list
+    params = .make_prop_rfg_params_list()
   )
 )
+
+
