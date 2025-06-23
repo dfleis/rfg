@@ -2,7 +2,6 @@
 % Please edit documentation in R/rfg-package.R
 \docType{package}
 \name{rfg-package}
-\alias{rfg}
 \alias{rfg-package}
 \title{rfg: Random Function Generator}
 \description{

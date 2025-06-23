@@ -16,3 +16,13 @@ Imports:
     stats,
     utils,
     withr
+Collate: 
+    'properties.R'
+    'classes.R'
+    'generators.R'
+    'params.R'
+    'print.R'
+    'rfg-package.R'
+    'rfg.R'
+    'utils.R'
+    'zzz.R'
