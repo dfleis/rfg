@@ -1,15 +1,3 @@
-# TODO:
-#   * Transition to checkmate for checking, c.f. 
-#       - checkmate::check* (returns TRUE if pass, string otherwise)
-#       - checkmate::assert* (invisibly returns the input if pass, error otherwise)
-#       - checkmate::test* (returns TRUE if pass, FALSE otherwise)
-#     Specifically, an S7 validator invisibly return NULL if pass, and otherwise
-#     return a string describing the.
-#   * Look at things like rlang::is_integerish rlang::is_integerish_scalar
-#   * Many of the numeric properties allow for NaN, NA_real_ values. Is this
-#     useful or potentially dangerous/annoying and should be prevented?
-#   *
-
 #' @keywords internal
 #' @noRd
 .always_true <- function(x) TRUE
