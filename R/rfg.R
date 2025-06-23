@@ -62,14 +62,6 @@ S7::method(rfg, S7::class_list) <- function(p, q = 1L, ..., seed = NULL) {
         stop(sprintf("RFG function inputs must have %i columns", p_dim))
       }
       res <- lapply(bases, function(b) { 
-        # TODO Probably a nicer way to do this. That said, this definition
-        # is pretty fast when computing values at computation-time, particularly
-        # since @phi, @mu, and @V tend to be fairly small. The smallness is by
-        # design. Their dimension is controlled by an exponential random
-        # variable with (default) mean 2, and thus we expect their dimension to
-        # be between 3 and 4. Obviously, if the dimension of x is very large,
-        # or if the user manually specifies a larger exponential rate, then
-        # this could blow up.
         zc <- sweep(x[, b@phi, drop = FALSE], 2, b@mu, "-") 
         zV <- zc %*% b@V
         b@a * exp(-0.5 * rowSums(zV * zc))
