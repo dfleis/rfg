@@ -1,6 +1,13 @@
 #' @include classes.R
 NULL
 
+#----- Print utilities
+#' @keywords internal
+#' @noRd
+.cap_str <- function(x, give.attr = FALSE, ...) {
+  capture.output(str(x, give.attr = give.attr, ...))
+}
+
 #' @keywords internal
 #' @noRd
 .format_classname <- S7::new_generic("format_classname", "x")
@@ -10,25 +17,26 @@ NULL
 S7::method(.format_classname, S7::S7_object) <- function(x, ...) {
   class_obj <- S7::S7_class(x)
   pkg <- class_obj@package # S7::prop(class_obj, "package")
-  nm <- class_obj@name # S7::prop(class_obj, "name")
+  nm <- class_obj@name     # S7::prop(class_obj, "name")
   sprintf("<%s%s>", toString(sprintf("%s::", pkg)), nm)
 }
 
+#----- Print methods
 #' @export
 S7::method(print, rfg_basis_params) <- function(x, detailed = TRUE, ...) {
   if (!isTRUE(detailed)) {
     class_info <- .format_classname(x)
     
     str_a <- sprintf("@a %6.3f", x@a)
-    str_phi <- sprintf("@phi %s", capture.output(str(x@phi, give.head = F, vec.len = 2))[1])
+    str_phi <- sprintf("@phi %s", .cap_str(x@phi, give.head = F, vec.len = 2)[1])
     
-    str_mu <- sprintf("@mu%s", sub(" NULL ...", "", capture.output(str(x@mu, vec.len = 0))[1]))
+    str_mu <- sprintf("@mu%s", sub(" NULL ...", "", .cap_str(x@mu, vec.len = 0)[1]))
     if (length(x@mu) == 1L) {
-      str_mu <- paste(str_mu, "[1]")
+      str_mu <- paste(str_mu, "[1:1]")
     }
-    str_V <- sprintf("@V%s", sub(" NULL ...", "", capture.output(str(x@V, vec.len = 0))[1]))
+    str_V <- sprintf("@V%s", sub(" NULL ...", "", .cap_str(x@V, vec.len = 0)[1]))
     
-    cat(class_info, paste(str_a, str_phi, str_mu, str_V, sep = ", "), "\n")
+    cat(class_info, paste(str_a, str_mu, str_V, str_phi, sep = ", "), "\n")
     return(invisible(x))
   } else {
     NextMethod()
