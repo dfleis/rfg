@@ -12,18 +12,17 @@ NULL
   }
 }
 
-.make_validator_num <- function(any.missing = FALSE, min.len = 1, finite = TRUE, ...) {
+.make_validator_num <- function(any.missing = FALSE, min.len = 1, ...) {
   .build_validator(
-    check_fn = checkmate::check_numeric, 
+    check_fn = checkmate::check_atomic_vector, 
     any.missing = any.missing, 
     min.len = min.len, 
-    finite = finite,
     ...
   )
 }
 .make_validator_int <- function(any.missing = FALSE, min.len = 1, ...) {
   .build_validator(
-    checkmate::check_integerish, 
+    check_fn = checkmate::check_integerish, 
     any.missing = any.missing, 
     min.len = min.len, 
     ...
@@ -54,9 +53,23 @@ validator_int_scalar <- .make_validator_int(len = 1)
 validator_int_vector <- .make_validator_int()
 validator_num_scalar <- .make_validator_num(len = 1)
 validator_num_vector <- .make_validator_num()
-# TODO square matrix validator
+
 validator_num_matrix <- .build_validator(
-  checkmate::check_matrix, any.missing = FALSE, min.rows = 1, min.cols = 1
+  checkmate::check_matrix, mode = "numeric", 
+  any.missing = FALSE, min.rows = 1, min.cols = 1
+)
+validator_num_sq_matrix <- .build_validator(
+  function(x, ...) {
+    res <- checkmate::check_matrix(x = x, ...)
+    if (!isTRUE(res)) {
+      return (res)
+    } else if (NROW(x) != NCOL(x)) {
+      return ("Must be a square matrix")
+    } else {
+      TRUE
+    }
+  },
+  mode = "numeric", any.missing = FALSE, min.rows = 1, min.cols = 1
 )
 
 # The `rfg_bases` property is just any list of <rfg_basis_params>

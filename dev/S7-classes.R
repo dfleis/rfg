@@ -14,7 +14,7 @@ rfg_basis_params <- S7::new_class(
     a   = prop_num_scalar,
     phi = prop_int_vector,
     mu  = prop_num_vector,
-    V   = prop_num_matrix
+    V   = prop_num_sq_matrix
   ),
   validator = function(self) {
     if (length(self@phi) != length(self@mu)) {
