@@ -18,6 +18,7 @@ Imports:
     utils,
     withr
 Collate: 
+    'S7-utils.R'
     'properties.R'
     'classes.R'
     'generators.R'
