@@ -6,7 +6,7 @@ NULL
 #' @keywords internal
 #' @noRd
 cap_str <- function(x, give.attr = FALSE, ...) {
-  capture.output(str(x, give.attr = give.attr, ...))
+  utils::capture.output(utils::str(x, give.attr = give.attr, ...))
 }
 
 #' @keywords internal

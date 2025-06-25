@@ -66,7 +66,7 @@ assert_S7_generator_name <- function(Class, arg = deparse(substitute(Class))) {
   if (!isTRUE(is_S7_Class(Class))) {
     msg <- sprintf(
       "Object %s must be an <S7_class>, not %s", arg,
-      if (.is_S7_instance(Class)) "an <S7_object>"
+      if (is_S7_instance(Class)) "an <S7_object>"
       else paste("a", obj_desc(Class))
     )
     stop(msg, call. = FALSE)
