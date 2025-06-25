@@ -77,11 +77,8 @@ rfg_function <- S7::new_class(
   name = "rfg_function",
   parent = S7::class_function,
   properties = list(
-    .params = .make_prop_list(validator_rfg_params_list),
-    params = .make_prop_list( # Read-only
-      validator = validator_rfg_params_list,
-      getter = function(self) self@.params
-    )
+    .params = prop_rfg_params_list,
+    params  = prop_rfg_params_list_read_only
   ),
   constructor = function(..., params) {
     S7::new_object(..., .params = params)
