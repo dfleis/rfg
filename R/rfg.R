@@ -1,4 +1,4 @@
-#' @include classes.R
+#' @include rfg-classes.R
 NULL
 
 #' @title Create a RFG Function

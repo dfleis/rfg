@@ -1,5 +1,4 @@
-#' @include classes.R
-#' @include S7-utils.R
+#' @include rfg-classes.R
 NULL
 
 #----- Print utilities

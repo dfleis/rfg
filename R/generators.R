@@ -1,4 +1,4 @@
-#' @include classes.R
+#' @include rfg-classes.R
 NULL
 
 #' @title Generate Parameters for a Scalar-Valued RFG Function

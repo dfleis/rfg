@@ -1,5 +1,8 @@
+#' @include S7-validators.R
 #' @include S7-properties.R
 NULL
+
+#----- Class definition <rfg_basis_params>
 
 #' @title The `rfg_basis_params` Class
 #'
@@ -26,6 +29,12 @@ rfg_basis_params <- S7::new_class(
     }
   }
 )
+
+#----- Class definition <rfg_params>
+
+# The `rfg_bases` property is just any list of <rfg_basis_params>
+validator_rfg_bases <- .make_validator_list_S7(rfg_basis_params)
+prop_rfg_bases <- .make_prop_list(validator_rfg_bases)
 
 #' @title The `rfg_params` Class
 #'
@@ -62,6 +71,31 @@ rfg_params <- S7::new_class(
       }
     }
   }
+)
+
+
+#----- Class definition <rfg_function>
+
+# The `rfg_params_list` property is a list of <rfg_params> where each entry of
+# the list is an <rfg_params> instance with the same domain dimensionality @p
+validator_rfg_params_list_types <- .make_validator_list_S7(rfg_params)
+validator_rfg_params_list <- function(value) {
+  res <- validator_rfg_params_list_types(value) # Only validates the types
+  if (!is.null(res)) {
+    return (res)
+  } else if (length(unique(sapply(value, S7::prop, "p"))) != 1L) {
+    paste(
+      "Every <rfg_params> object in the list must",
+      "have the same domain dimensionality @p"
+    )
+  } else {
+    NULL
+  }
+}
+prop_rfg_params_list <- .make_prop_list(validator_rfg_params_list)
+prop_rfg_params_list_read_only <- .make_prop_list( 
+  validator = validator_rfg_params_list,
+  getter = function(self) self@.params
 )
 
 #' @title The `rfg_function` Class

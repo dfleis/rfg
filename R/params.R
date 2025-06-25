@@ -1,4 +1,4 @@
-#' @include classes.R
+#' @include rfg-classes.R
 NULL
 
 #' @title Extract Parameters from an RFG Function

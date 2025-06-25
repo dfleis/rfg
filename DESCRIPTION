@@ -19,8 +19,9 @@ Imports:
     withr
 Collate: 
     'S7-utils.R'
-    'properties.R'
-    'classes.R'
+    'S7-validators.R'
+    'S7-properties.R'
+    'rfg-classes.R'
     'generators.R'
     'params.R'
     'print.R'
