@@ -61,6 +61,19 @@ validator_num_matrix <- .build_validator(
 
 # The `rfg_bases` property is just any list of <rfg_basis_params>
 validator_rfg_bases <- .make_validator_list_S7(rfg_basis_params)
+# TODO The inclusion of `rfg_basis_params` and `rfg_params` below will break
+# TODO the package build because this file cannot see the necessary class
+# TODO definitions. At the top of this file, I need to do something like 
+# TODO    @include S7-classes.R
+# TODO However, it's not immediately clear to me whether this is in fact the
+# TODO solution because there might be some kind of recursive dependency
+# TODO loop since the @include chain looks like
+# TODO    S7-utils.R -> S7-validators.R -> S7-properties.R -> S7-classes.R 
+# TODO I have not yet tested this, and so I can't say whether it will be a
+# TODO problem (the solution would be to simply re-organize the file contents).
+# TODO
+# TODO This is just a big note to myself regarding something of which I ought
+# TODO to stay aware.
 
 # The `rfg_params_list` property is a list of <rfg_params> where each entry of
 # the list is an <rfg_params> instance with the same domain dimensionality @p
