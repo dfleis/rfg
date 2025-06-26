@@ -16,7 +16,7 @@ NULL
 
 .make_prop_validator_num <- function(any.missing = FALSE, min.len = 1, ...) {
   .build_prop_validator(
-    check_fn = checkmate::check_atomic_vector, 
+    check_fn = checkmate::check_numeric, 
     any.missing = any.missing, 
     min.len = min.len, 
     ...
