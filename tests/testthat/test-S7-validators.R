@@ -1,21 +1,3 @@
-####################################################################################################
-# test-S7-validators.R
-#
-# .build_prop_validator
-#
-# .make_prop_validator_num
-# .make_prop_validator_int
-# .make_prop_validator_list
-# .make_prop_validator_list_S7
-# 
-# validator_int_scalar
-# validator_int_vector
-# validator_num_scalar
-# validator_num_vector
-# validator_num_matrix
-# validator_num_sq_matrix
-#
-####################################################################################################
 library(checkmate)
 
 #----- .build_prop_validator factory
