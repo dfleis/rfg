@@ -6,7 +6,7 @@ Authors@R:
 Description: Generates complex multivariate functions following the random
     function generator design used in Friedman (2001) 'Greedy function
     approximation: A gradient boosting machine'. Intended for use as part
-    of data pipeline for synethic data experiments.
+    of data pipeline for synthetic data experiments.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
