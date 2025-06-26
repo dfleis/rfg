@@ -5,7 +5,7 @@
 \alias{rfg-package}
 \title{rfg: Random Function Generator}
 \description{
-Generates complex multivariate functions following the random function generator design used in Friedman (2001) 'Greedy function approximation: A gradient boosting machine'. Intended for use as part of data pipeline for synethic data experiments.
+Generates complex multivariate functions following the random function generator design used in Friedman (2001) 'Greedy function approximation: A gradient boosting machine'. Intended for use as part of data pipeline for synthetic data experiments.
 }
 \author{
 \strong{Maintainer}: David Fleischer \email{david.p.fleischer@gmail.com}
