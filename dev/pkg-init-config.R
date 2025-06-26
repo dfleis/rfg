@@ -5,11 +5,10 @@
 ####################################################################################################
 library(devtools)
 library(usethis)
-# library(testthat)
 # library(desc)
 
 #--------------------------------------------------
-#----- INITIAL CONFIG, FILE INITIALIZATION
+#----- Directory, file initialization
 #--------------------------------------------------
 #----- Create package project skeleton
 # usethis::create_package("../rfg")
@@ -23,7 +22,7 @@ library(usethis)
 # usethis::use_build_ignore("man-roxygen")
 
 #----- Create skeleton {packageName}-package.R file
-usethis::use_package_doc()
+# usethis::use_package_doc()
 
 #----- Create DESCRIPTION file
 per1 <- utils::person(
@@ -38,7 +37,7 @@ usethis::use_description(fields = list(
   Description = paste(
     "Generates complex multivariate functions following the random function generator design",
     "used in Friedman (2001) 'Greedy function approximation: A gradient boosting machine'.",
-    "Intended for use as part of data pipeline for synethic data experiments."
+    "Intended for use as part of data pipeline for synthetic data experiments."
   ),
   `Authors@R` = c(per1)
 ))
