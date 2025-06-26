@@ -44,9 +44,6 @@ usethis::use_description(fields = list(
 
 usethis::use_mit_license()
 
-#----- Setup testthat file structure
-# usethis::use_testthat()
-
 #----- Set some package dependencies
 usethis::use_package("S7", min_version = "0.2.0")
 usethis::use_import_from("stats", c("rnorm", "rexp", "runif"))
