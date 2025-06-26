@@ -22,18 +22,18 @@ rm(list = ls()); gc()
 # usethis::use_version("minor")
 # usethis::use_version("major")
 
-# devtools::load_all() # Load the current version
-# devtools::document() # Update documentation via Roxygen
-# devtools::test()     # Run testthat tests
-# 
-# # pkg_rep <- covr::package_coverage(type = "all") 
-# # covr::report(pkg_rep) 
-# covr::package_coverage() # Testing coverage report
-# covr::report() # More detailed testing coverage report
+devtools::load_all() # Load the current version
+devtools::document() # Update documentation via Roxygen
+devtools::test()     # Run testthat tests
+
+# pkg_rep <- covr::package_coverage(type = "all")
+# covr::report(pkg_rep)
+covr::package_coverage() # Testing coverage report
+covr::report() # More detailed testing coverage report
 
 # #----- Build cycle
-roxygen2::roxygenise(clean = TRUE)
-devtools::check() # Catch errors before build
-devtools::build()
-devtools::install() # If we want to test an actual installation
+# roxygen2::roxygenise(clean = TRUE)
+# devtools::check() # Catch errors before build
+# devtools::build()
+# devtools::install() # If we want to test an actual installation
 
